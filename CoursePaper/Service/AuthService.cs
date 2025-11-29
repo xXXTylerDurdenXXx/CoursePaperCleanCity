@@ -27,7 +27,7 @@ namespace CoursePaper.Service
         {
             try
             {
-                var user = _userRepository.ExistUser(loginRequest.LoginOrEmail);
+                var user = _userRepository.ExistUser(loginRequest.Email);
                 if (user == null)
                     return new AuthResponse
                     {

@@ -36,15 +36,19 @@ namespace CoursePaper.Controllers
                 ModelState.AddModelError("", result.ErrorMessage);
                 return View(request);
             }
+         
+
+            _logger.LogInformation("Пользователь {Email} успешно прошёл аутентификацию.", request.Email);
             HttpContext.Session.SetString("AccessToken", result.Token);
 
+            
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            return View(new CreateUserRequest());
         }
 
         
@@ -52,11 +56,7 @@ namespace CoursePaper.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(CreateUserRequest request)
         {
-            var username = Request.Form["Username"];
-            var email = Request.Form["Email"];
-            var password = Request.Form["Password"];
-
-            return Content($"Username={username}; Email={email}; Password={password}");
+            
             if (!ModelState.IsValid)
             {
                 var errors = string.Join("; ", ModelState.Values
