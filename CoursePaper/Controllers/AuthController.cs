@@ -78,7 +78,7 @@ namespace CoursePaper.Controllers
 
             HttpContext.Session.SetString("AccessToken", result.Token);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Auth");
         }
 
         
